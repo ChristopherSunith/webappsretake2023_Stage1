@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+</head>
+<body>
+<h1>Welcome, Student!</h1>
+<h2>Available Project Proposals:</h2>
+<ul>
+    {% for proposal in proposals %}
+    <li>{{ proposal.supervisor.username }} - {{ proposal.topic.title }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

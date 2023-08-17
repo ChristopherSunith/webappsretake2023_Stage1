@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPMS App - Home</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'register/css/styles.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="wrapper">
+  <h2>Welcome to SPMS App</h2>
+  <div style="margin-bottom: 20px;"></div>
+  <main>
+    <h2>Login</h2>
+    <form method="post" action=".">
+      {% csrf_token %}
+      <div class="input-box">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+      </div>
+      <div style="margin-bottom: 40px;"></div>
+      <div class="input-box">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+      </div>
+      <div style="margin-bottom: 40px;"></div>
+      <div class="input-box button">
+        <input type="submit" value="Login">
+      </div>
+    </form>
+    {% if error_message %}
+    <div class="error">
+      {{ error_message }}
+    </div>
+    {% endif %}
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% if user.groups.filter(name='Student').exists %}
+<!-- Display student dashboard -->
+<h2>Welcome, {{ user.username }} (Student)</h2>
+<!-- Display list of project proposals and allow proposing new projects -->
+<!-- ... -->
+{% elif user.groups.filter(name='Supervisor').exists %}
+<!-- Display supervisor dashboard -->
+<h2>Welcome, {{ user.username }} (Supervisor)</h2>
+<!-- Display list of proposed projects, accept/reject functionality, and notifications -->
+<!-- ... -->
+{% elif user.groups.filter(name='Administrator').exists %}
+<!-- Display administrator dashboard -->
+<h2>Welcome, {{ user.username }} (Administrator)</h2>
+<!-- Provide functionalities for registering users, project topics, and viewing reports -->
+<!-- ... -->
+{% else %}
+<!-- Default dashboard for other users -->
+<h2>Welcome, {{ user.username }}</h2>
+{% endif %}

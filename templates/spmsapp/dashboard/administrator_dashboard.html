@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Administrator Dashboard</title>
+</head>
+<body>
+<h1>Welcome, Administrator!</h1>
+<h2>Manage Users:</h2>
+<ul>
+    {% for user in users %}
+    <li>{{ user.username }}</li>
+    {% endfor %}
+</ul>
+<h2>Manage Project Topics:</h2>
+<ul>
+    {% for topic in topics %}
+    <li>{{ topic.title }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

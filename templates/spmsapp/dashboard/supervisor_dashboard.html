@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supervisor Dashboard</title>
+</head>
+<body>
+<h1>Welcome, Supervisor!</h1>
+<h2>Manage Project Proposals:</h2>
+<ul>
+    {% for proposal in proposals %}
+    <li>{{ proposal.student.username }} - {{ proposal.topic.title }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

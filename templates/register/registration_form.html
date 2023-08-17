@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration</title>
+  <link rel="stylesheet" href="{% static 'register/css/styles.css' %}">
+</head>
+<body>
+<div class="wrapper">
+  <h2>Registration</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="input-box">
+      <label for="id_role">Select Role:</label>
+      <select name="role" id="id_role">
+        <option value="student">Student</option>
+        <option value="supervisor">Supervisor</option>
+        <option value="administrator">Administrator</option>
+      </select>
+    </div>
+
+    <div class="input-box button">
+      <input type="submit" value="Register Now">
+    </div>
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </form>
+</div>
+</body>
+</html>
