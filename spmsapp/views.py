@@ -14,7 +14,6 @@ def home(request):
 
 @require_POST
 def home(request):
-    print("Received request with method:", request.method)
     form = AuthenticationForm(request, data=request.POST)
     if form.is_valid():
         username = form.cleaned_data['username']
@@ -22,9 +21,15 @@ def home(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('dashboard')  # Redirect to appropriate dashboard
+            # Redirect to appropriate dashboard based on user roles
+            if user.roles.filter(role='Administrator').exists():
+                return redirect('administrator_dashboard')
+            elif user.roles.filter(role='Supervisor').exists():
+                return redirect('supervisor_dashboard')
+            elif user.roles.filter(role='Student').exists():
+                return redirect('student_dashboard')
+            # Add more roles and redirections as needed
         else:
-            # Handle authentication error
             error_message = 'Invalid credentials'
     else:
         error_message = None
