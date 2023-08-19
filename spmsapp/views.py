@@ -1,19 +1,40 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
-from spmsapp.models import ProjectProposal, ProjectTopic
+from spmsapp.models import ProjectProposal
 from register.models import CustomUser
 from register.forms import UserRegistrationForm
+
+from spmsapp.models import ProjectTopic
+from django.http import HttpResponse
+from django.template import loader
 
 
 def home(request):
     return render(request, 'home.html')
 
 
+# delete later
+
+
+# This view does not require login
+
+def administrator_dashboard(request):
+    users = CustomUser.objects.all()
+    topics = ProjectTopic.objects.all()
+    return render(request, 'spmsapp/dashboard/administrator_dashboard.html', {'users': users, 'topics': topics})
+
+
+# delete the code above later
+
 @require_POST
 def home(request):
+    # delete later
+    is_administrator = request.user.roles.filter(role='Administrator').exists()
+    return render(request, 'spmsapp/home.html', {'is_administrator': is_administrator})
+    # the above code is to bypass login
     form = AuthenticationForm(request, data=request.POST)
     if form.is_valid():
         username = form.cleaned_data['username']
@@ -37,15 +58,15 @@ def home(request):
     return render(request, 'spmsapp/home.html', {'form': form, 'error_message': error_message})
 
 
-@login_required
-def administrator_dashboard(request):
-    if request.user.roles.filter(role='Administrator').exists():
-        # Fetch data or perform actions specific to administrators
-        users = CustomUser.objects.all()
-        topics = ProjectTopic.objects.all()
-        return render(request, 'spmsapp/dashboard/administrator_dashboard.html', {'users': users, 'topics': topics})
-    else:
-        return render(request, 'error.html', {'message': 'You are not authorized to access this page.'})
+# @login_required
+# def administrator_dashboard(request):
+#     if request.user.roles.filter(role='Administrator').exists():
+#         # Fetch data or perform actions specific to administrators
+#         users = CustomUser.objects.all()
+#         topics = ProjectTopic.objects.all()
+#         return render(request, 'spmsapp/dashboard/administrator_dashboard.html', {'users': users, 'topics': topics})
+#     else:
+#         return render(request, 'error.html', {'message': 'You are not authorized to access this page.'})
 
 
 @login_required

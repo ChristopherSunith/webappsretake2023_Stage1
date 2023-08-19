@@ -33,6 +33,15 @@
         <input type="submit" value="Login">
       </div>
     </form>
+
+      <!-- Update the link for administrators -->
+
+      <div class="administration-dashboard-button">
+          <a href="{% url 'administrator_dashboard' %}" class="btn btn-primary">Access Administrator Dashboard</a>
+      </div>
+
+      <!-- ... error message display ... -->
+
     {% if error_message %}
     <div class="error">
       {{ error_message }}

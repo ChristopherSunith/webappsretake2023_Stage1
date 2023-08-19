@@ -1,5 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.views.generic.edit import FormView
+
 from .forms import UserRegistrationForm
 from django.contrib import messages
 
@@ -40,9 +43,13 @@ def register_user(request):
 
 
 # ...
+class RegistrationFormView(FormView):
+    template_name = 'register/registration_form.html'
+    form_class = UserRegistrationForm
+    success_url = '/'  # Replace with the desired success URL
 
+# Other view functions in your register/views.py file
 
-# ... (your existing imports)
 
 def propose_project(request, project_id):
     project = ProjectProposal.objects.get(id=project_id)
